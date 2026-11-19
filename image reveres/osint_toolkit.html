@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Toolkit - Educational</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background-color: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .logo p {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 25px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-btn:hover {
+            background-color: #1e293b;
+            color: white;
+        }
+
+        .nav-btn.active {
+            background-color: #1e40af;
+            color: white;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 40px 50px;
+            overflow-y: auto;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px 25px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card h3 {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Warning Box */
+        .warning {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 30px;
+        }
+
+        .warning h4 {
+            color: #b91c1c;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .warning p {
+            color: #7f1d1d;
+            font-size: 13.5px;
+            line-height: 1.5;
+        }
+
+        /* Placeholder style for other pages */
+        .placeholder {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            color: #64748b;
+            border: 2px dashed #cbd5e1;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h1>OSINT Toolkit</h1>
+            <p>Educational Use Only</p>
+        </div>
+
+        <button class="nav-btn active" onclick="showPage('home')">🏠  Home</button>
+        <button class="nav-btn" onclick="showPage('image')">🖼️  Reverse Image</button>
+        <button class="nav-btn" onclick="showPage('name')">🔍  Name Search</button>
+        <button class="nav-btn" onclick="showPage('report')">📄  Report</button>
+
+        <div class="sidebar-footer">
+            Public Data Only<br>
+            Ethical Use Required
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <h2>Welcome to OSINT Toolkit</h2>
+            <p class="subtitle">A simple educational tool for public information research</p>
+
+            <div class="card">
+                <h3>🖼️ Reverse Image Search</h3>
+                <p>Search public engines (Google Lens, Yandex, TinEye, Bing) using an image.</p>
+            </div>
+
+            <div class="card">
+                <h3>🔍 Name Search</h3>
+                <p>Search a name across public web results with smart queries.</p>
+            </div>
+
+            <div class="card">
+                <h3>📄 Investigation Report</h3>
+                <p>Write and save your findings in a clean report.</p>
+            </div>
+
+            <div class="warning">
+                <h4>⚠️ Important Warning</h4>
+                <p>
+                    This tool only works with publicly available information.<br>
+                    Do not use it for harassment, stalking, doxxing, or any illegal purpose.
+                </p>
+            </div>
+        </div>
+
+        <!-- REVERSE IMAGE PAGE (Placeholder) -->
+        <div id="image" class="page">
+            <h2>Reverse Image Search</h2>
+            <p class="subtitle">This section will be completed in the next part</p>
+            <div class="placeholder">
+                Reverse Image Search page coming in Part 2
+            </div>
+        </div>
+
+        <!-- NAME SEARCH PAGE (Placeholder) -->
+        <div id="name" class="page">
+            <h2>Name Search</h2>
+            <p class="subtitle">This section will be completed in the next part</p>
+            <div class="placeholder">
+                Name Search page coming in Part 3
+            </div>
+        </div>
+
+        <!-- REPORT PAGE (Placeholder) -->
+        <div id="report" class="page">
+            <h2>Investigation Report</h2>
+            <p class="subtitle">This section will be completed in the next part</p>
+            <div class="placeholder">
+                Report page coming in Part 4
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Highlight the clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!-- ==================== PART 3: NAME SEARCH PAGE ==================== -->
+
+<style>
+    /* Name Search Styles */
+    .search-box {
+        display: flex;
+        gap: 12px;
+        margin: 25px 0 30px 0;
+    }
+
+    .search-box input {
+        flex: 1;
+        padding: 14px 18px;
+        font-size: 16px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        outline: none;
+    }
+
+    .search-box input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+</style>
+
+<!-- Name Search Page HTML -->
+<div id="name" class="page">
+    <h2>Name Search</h2>
+    <p class="subtitle">Search a name across public search engines</p>
+
+    <div class="search-box">
+        <input type="text" id="nameInput" placeholder="Enter full name (example: John Smith)" />
+        <button class="open-all-btn" onclick="searchName()">Search</button>
+    </div>
+
+    <div class="engine-grid">
+        <button class="engine-btn" onclick="searchGoogle()">
+            Google Search
+            <span>General web results</span>
+        </button>
+
+        <button class="engine-btn" onclick="searchBing()">
+            Bing Search
+            <span>Alternative results</span>
+        </button>
+
+        <button class="engine-btn" onclick="searchDuckDuckGo()">
+            DuckDuckGo
+            <span>Privacy focused</span>
+        </button>
+
+        <button class="engine-btn" onclick="searchSocial()">
+            Social Media Search
+            <span>Public posts only</span>
+        </button>
+    </div>
+
+    <div class="tips-box">
+        <h4>How to use Name Search</h4>
+        <ul>
+            <li>Type the full name in the search box</li>
+            <li>Click any button to open results in a new tab</li>
+            <li>“Social Media Search” looks for public posts on Facebook, Instagram, Twitter, LinkedIn etc.</li>
+            <li>Only publicly indexed information will appear</li>
+        </ul>
+    </div>
+
+    <div class="warning">
+        <h4>⚠️ Important</h4>
+        <p>
+            This tool only opens public search engines.<br>
+            It cannot access private accounts or hidden information.
+        </p>
+    </div>
+</div>
+
+<script>
+    // ========== Name Search Functions ==========
+    function getName() {
+        const name = document.getElementById("nameInput").value.trim();
+        if (!name) {
+            alert("Please enter a name first.");
+            return null;
+        }
+        return encodeURIComponent(name);
+    }
+
+    function searchName() {
+        const name = getName();
+        if (!name) return;
+        searchGoogle();
+    }
+
+    function searchGoogle() {
+        const name = getName();
+        if (!name) return;
+        window.open(`https://www.google.com/search?q=${name}`, "_blank");
+    }
+
+    function searchBing() {
+        const name = getName();
+        if (!name) return;
+        window.open(`https://www.bing.com/search?q=${name}`, "_blank");
+    }
+
+    function searchDuckDuckGo() {
+        const name = getName();
+        if (!name) return;
+        window.open(`https://duckduckgo.com/?q=${name}`, "_blank");
+    }
+
+    function searchSocial() {
+        const name = getName();
+        if (!name) return;
+
+        const query = `${name} (site:facebook.com OR site:instagram.com OR site:twitter.com OR site:x.com OR site:linkedin.com OR site:tiktok.com)`;
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank");
+    }
+</script>

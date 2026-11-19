@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Toolkit - Educational</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background-color: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .logo p {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 25px;
+            color: #cbd5e1;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-btn:hover {
+            background-color: #1e293b;
+            color: white;
+        }
+
+        .nav-btn.active {
+            background-color: #1e40af;
+            color: white;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 40px 50px;
+            overflow-y: auto;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px 25px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card h3 {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .warning {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 30px;
+        }
+
+        .warning h4 {
+            color: #b91c1c;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .warning p {
+            color: #7f1d1d;
+            font-size: 13.5px;
+            line-height: 1.5;
+        }
+
+        /* ===== Reverse Image Search Styles ===== */
+        .engine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 25px 0;
+        }
+
+        .engine-btn {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .engine-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #3b82f6;
+        }
+
+        .engine-btn span {
+            display: block;
+            font-size: 13px;
+            font-weight: 400;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        .open-all-btn {
+            background-color: #1e40af;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .open-all-btn:hover {
+            background-color: #1e3a8a;
+        }
+
+        .tips-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-top: 25px;
+        }
+
+        .tips-box h4 {
+            color: #0369a1;
+            margin-bottom: 8px;
+        }
+
+        .tips-box ul {
+            padding-left: 18px;
+            color: #0c4a6e;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h1>OSINT Toolkit</h1>
+            <p>Educational Use Only</p>
+        </div>
+
+        <button class="nav-btn active" onclick="showPage('home', this)">🏠  Home</button>
+        <button class="nav-btn" onclick="showPage('image', this)">🖼️  Reverse Image</button>
+        <button class="nav-btn" onclick="showPage('name', this)">🔍  Name Search</button>
+        <button class="nav-btn" onclick="showPage('report', this)">📄  Report</button>
+
+        <div class="sidebar-footer">
+            Public Data Only<br>
+            Ethical Use Required
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <h2>Welcome to OSINT Toolkit</h2>
+            <p class="subtitle">A simple educational tool for public information research</p>
+
+            <div class="card">
+                <h3>🖼️ Reverse Image Search</h3>
+                <p>Search public engines (Google Lens, Yandex, TinEye, Bing) using an image.</p>
+            </div>
+
+            <div class="card">
+                <h3>🔍 Name Search</h3>
+                <p>Search a name across public web results with smart queries.</p>
+            </div>
+
+            <div class="card">
+                <h3>📄 Investigation Report</h3>
+                <p>Write and save your findings in a clean report.</p>
+            </div>
+
+            <div class="warning">
+                <h4>⚠️ Important Warning</h4>
+                <p>
+                    This tool only works with publicly available information.<br>
+                    Do not use it for harassment, stalking, doxxing, or any illegal purpose.
+                </p>
+            </div>
+        </div>
+
+        <!-- ==================== REVERSE IMAGE SEARCH PAGE ==================== -->
+        <div id="image" class="page">
+            <h2>Reverse Image Search</h2>
+            <p class="subtitle">Upload your image on these public search engines</p>
+
+            <div class="engine-grid">
+                <button class="engine-btn" onclick="openEngine('google')">
+                    Google Lens
+                    <span>Best overall search</span>
+                </button>
+
+                <button class="engine-btn" onclick="openEngine('yandex')">
+                    Yandex Images
+                    <span>Best for faces</span>
+                </button>
+
+                <button class="engine-btn" onclick="openEngine('tineye')">
+                    TinEye
+                    <span>Exact image match</span>
+                </button>
+
+                <button class="engine-btn" onclick="openEngine('bing')">
+                    Bing Visual
+                    <span>Good alternative</span>
+                </button>
+            </div>
+
+            <button class="open-all-btn" onclick="openAllEngines()">
+                Open All Engines at Once
+            </button>
+
+            <div class="tips-box">
+                <h4>How to use (Important)</h4>
+                <ul>
+                    <li>Click any engine button → a new tab will open</li>
+                    <li>Upload the same photo on that website</li>
+                    <li><strong>Yandex</strong> is usually the strongest for finding faces</li>
+                    <li>Look for public social media posts in the results</li>
+                    <li>Only public images will show results</li>
+                </ul>
+            </div>
+
+            <div class="warning" style="margin-top: 25px;">
+                <h4>⚠️ Limitation</h4>
+                <p>
+                    If the photo only exists on your phone or private accounts, 
+                    these engines will usually find nothing. This is normal.
+                </p>
+            </div>
+        </div>
+
+        <!-- NAME SEARCH (Placeholder) -->
+        <div id="name" class="page">
+            <h2>Name Search</h2>
+            <p class="subtitle">This section will be completed in Part 3</p>
+            <div class="card">
+                <p>Coming soon...</p>
+            </div>
+        </div>
+
+        <!-- REPORT (Placeholder) -->
+        <div id="report" class="page">
+            <h2>Investigation Report</h2>
+            <p class="subtitle">This section will be completed in Part 4</p>
+            <div class="card">
+                <p>Coming soon...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showPage(pageId, btn) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Remove active from all buttons
+            document.querySelectorAll('.nav-btn').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Highlight clicked button
+            if (btn) {
+                btn.classList.add('active');
+            }
+        }
+
+        // Reverse Image Search functions
+        function openEngine(engine) {
+            const urls = {
+                google: "https://lens.google.com/upload",
+                yandex: "https://yandex.com/images/",
+                tineye: "https://tineye.com/",
+                bing: "https://www.bing.com/visualsearch"
+            };
+            window.open(urls[engine], "_blank");
+        }
+
+        function openAllEngines() {
+            openEngine('google');
+            openEngine('yandex');
+            openEngine('tineye');
+            openEngine('bing');
+        }
+    </script>
+
+</body>
+</html>
